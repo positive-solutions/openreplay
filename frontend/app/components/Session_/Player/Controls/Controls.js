@@ -365,7 +365,7 @@ export default class Controls extends React.Component {
                   hasErrors={ exceptionsCount > 0 }
                 />
               }
-              { showStack &&
+              { !live && showStack &&
                 <ControlButton
                   disabled={ disabled }
                   onClick={ () => toggleBottomBlock(STACKEVENTS) }
