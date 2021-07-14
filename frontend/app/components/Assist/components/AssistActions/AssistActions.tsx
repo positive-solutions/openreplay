@@ -29,14 +29,14 @@ function AssistActions({ toggleChatWindow, userId, calling, peerConnectionStatus
 
   useEffect(() => {
     console.log('peerConnectionStatus', peerConnectionStatus)
-    if (peerConnectionStatus == 4) {
+    if (peerConnectionStatus === 3) {
       toast.info(`Live session is closed.`);
       setDisconnected(true)
     }    
   }, [peerConnectionStatus])
 
   function onClose(stream) {    
-    stream.getTracks().forEach(t=>t.stop());    
+    stream.getTracks().forEach(t=>t.stop());
   }
 
   function onReject() {
