@@ -33,6 +33,7 @@ export default function(opts: Partial<Options> = {})  {
     if (app === null || !navigator?.mediaDevices?.getUserMedia) { // 93.04% browsers
       return;
     }
+    let didRestart = false;
 
     app.attachStartCallback(function() {
       // @ts-ignore
@@ -66,7 +67,9 @@ export default function(opts: Partial<Options> = {})  {
               buffering = false;
             }
           }
-          app.stop();
+          if (!didRestart) {
+            app.stop();
+          }
           //@ts-ignore (should update tracker dependency)
           app.addCommitCallback((messages: Array<Message>): void => {
             let i = 0;
@@ -78,7 +81,10 @@ export default function(opts: Partial<Options> = {})  {
               sendNext(); 
             }
           });
-          app.start();
+          if (!didRestart) {
+            app.start();
+            didRestart = true;
+          }
         });
       });
 
